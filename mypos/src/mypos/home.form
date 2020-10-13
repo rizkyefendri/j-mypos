@@ -180,7 +180,7 @@
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="home_btn"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Kasir"/>
+                <Property name="text" type="java.lang.String" value="POS"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton3ActionPerformed"/>

@@ -90,7 +90,7 @@ public class home extends javax.swing.JFrame {
         });
 
         home_btn.add(jToggleButton3);
-        jToggleButton3.setText("Kasir");
+        jToggleButton3.setText("POS");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
@@ -187,6 +187,11 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+    
+        pos pos = new pos();
+        jpload.jPanelLoader(panel_load, pos);
+        
+
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed

@@ -195,6 +195,10 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+
+        kasir kas = new kasir();
+        jpload.jPanelLoader(panel_load, kas);
+
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     /**

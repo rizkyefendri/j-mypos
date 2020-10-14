@@ -253,40 +253,7 @@ public class pos extends javax.swing.JPanel {
     private void procodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_procodeKeyPressed
         // TODO add your handling code here:
 
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
-        {
-
-            try {
-
-                System.out.println("hi");
-                String procod =procode.getText();
-
-                Class.forName("com.mysql.jdbc.Driver");
-                con1 = DriverManager.getConnection("jdbc:mysql://localhost/javapos","root","");
-                insert = con1.prepareStatement("select * from product where barcode = ? ");
-                insert.setString(1,procod);
-                rs1 = insert.executeQuery();
-
-                if(rs1.next()==false)
-                {
-
-                    JOptionPane.showMessageDialog(null, "Barcode not Found");
-                }
-                else
-                {
-                    String productname = rs1.getString("productname");
-                    String price = rs1.getString("retailprice");
-
-                    txtproduct.setText(productname.trim());
-                    txtprice.setText(price);
-                }
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(brand.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(brand.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        
 
     }//GEN-LAST:event_procodeKeyPressed
 
@@ -296,13 +263,7 @@ public class pos extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        model.removeRow(jTable1.getSelectedRow());
-        int sum = 0;
-        for(int i = 0; i < jTable1.getRowCount(); i++)
-        {
-            sum = sum + Integer.parseInt(jTable1.getValueAt(i, 4).toString());
-        }
-        txtsub.setText(Integer.toString(sum));
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -310,7 +271,7 @@ public class pos extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        pos();
+        
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -321,21 +282,7 @@ public class pos extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 
-        int pay = Integer.parseInt(txtpay.getText());
-        int total = Integer.parseInt(txtsub.getText());
-
-        int bal = pay - total;
-
-        txtbal.setText(String.valueOf(bal));
-
-        print();
-        makeConnection();
-
-        model.setRowCount(0);
-        txtsub.setText("");
-        txtpay.setText("");
-        txtbal.setText("");
-        procode.requestFocus();
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

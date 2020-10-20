@@ -198,7 +198,7 @@ public class home extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
     
-        sales sal = new sales();
+        supplier sal = new supplier();
         jpload.jPanelLoader(panel_load, sal);
         
 

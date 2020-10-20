@@ -46,11 +46,7 @@ public class supplier extends javax.swing.JPanel {
               v.add(rs.getString(1));
               v.add(rs.getString(2));
               v.add(rs.getString(3));
-              v.add(rs.getString(4));
-              v.add(rs.getString(5));
-              v.add(rs.getString(6));
-              v.add(rs.getString(7));
-              v.add(rs.getString(8));
+
 
               
               dt.addRow(v);
@@ -244,6 +240,11 @@ public class supplier extends javax.swing.JPanel {
                 sup_src1ActionPerformed(evt);
             }
         });
+        sup_src1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sup_src1KeyReleased(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -349,7 +350,7 @@ public class supplier extends javax.swing.JPanel {
         try {
 
             Statement s = db.mycon().createStatement();
-            s.executeUpdate("INSERT INTO supplier (nama_sup,kontak) VALUES ('"+nama+"','"+kon+"' ");
+            s.executeUpdate("INSERT INTO supplier (nama_sup,kontak) VALUES ('"+nama+"','"+kon+"' )" );
             
             JOptionPane.showMessageDialog(null, "Data Saved");
 
@@ -362,14 +363,15 @@ public class supplier extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        
+        String sid = sup_src.getText();
         String nama = sup_name.getText();
         String kon = kontak.getText();
 
         try {
 
             Statement s = db.mycon().createStatement();
-            s.executeUpdate("UPDATE produk SET nama_sup='"+nama+"',kontak='"+kon+"' ");
+            s.executeUpdate("UPDATE produk SET nama_sup='"+nama+"',kontak='"+kon+"' WHERE sid='"+sid+"' ");
 
             JOptionPane.showMessageDialog(null, "Data Updated");
 
@@ -391,7 +393,7 @@ public class supplier extends javax.swing.JPanel {
 
             if (rs.next()) {
 
-                sup_name.setText(rs.getString("sid"));
+                sup_name.setText(rs.getString("nama_sup"));
                 kontak.setText(rs.getString("kontak"));
                 
 
@@ -420,6 +422,46 @@ public class supplier extends javax.swing.JPanel {
         tb_load();
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void sup_src1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sup_src1KeyReleased
+        
+        String name = sup_src1.getText();
+        
+        try {
+            
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            dt.setRowCount(0);
+            Statement s = db.mycon().createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE nama_sup LIKE '%"+name+"%' ");
+            
+            while (rs.next()) {                
+                Vector v = new Vector();
+                
+                v.add(rs.getString(1));
+                v.add(rs.getString(2));
+                v.add(rs.getString(3));
+                
+                
+                dt.addRow(v);
+                
+                
+            }
+            
+            
+            
+            
+            
+        } catch (Exception e) {
+            tb_load();
+            
+        }
+        
+
+
+
+
+    }//GEN-LAST:event_sup_src1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,8 +22,8 @@ public class db {
      
      try {
          
-         Class.forName("com.mysql.jdbc.Driver");
-         con = DriverManager.getConnection("jdbc:mysql://localhost/mypos","root","");
+         Class.forName("com.mysql.cj.jdbc.Driver");
+         con = DriverManager.getConnection("jdbc:mysql://localhost/mypos?serverTimezone=UTC","root","");
          return con;
          
          

@@ -73,7 +73,7 @@ public class supplier extends javax.swing.JPanel {
         sup_src = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         sup_name = new javax.swing.JTextField();
-        kontak = new javax.swing.JTextField();
+        kon = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -143,10 +143,10 @@ public class supplier extends javax.swing.JPanel {
             }
         });
 
-        kontak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        kontak.addActionListener(new java.awt.event.ActionListener() {
+        kon.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        kon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kontakActionPerformed(evt);
+                konActionPerformed(evt);
             }
         });
 
@@ -195,7 +195,7 @@ public class supplier extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(kontak, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kon, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -218,7 +218,7 @@ public class supplier extends javax.swing.JPanel {
                     .addComponent(sup_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(kontak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -254,6 +254,11 @@ public class supplier extends javax.swing.JPanel {
                 "ID", "Nama Supplier", "Kontak"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -324,9 +329,9 @@ public class supplier extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kontakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kontakActionPerformed
+    private void konActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_konActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_kontakActionPerformed
+    }//GEN-LAST:event_konActionPerformed
 
     private void sup_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sup_nameActionPerformed
         // TODO add your handling code here:
@@ -344,13 +349,13 @@ public class supplier extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         String nama = sup_name.getText();
-        String kon = kontak.getText();
+        String kontak = kon.getText();
         
 
         try {
 
             Statement s = db.mycon().createStatement();
-            s.executeUpdate("INSERT INTO supplier (nama_sup,kontak) VALUES ('"+nama+"','"+kon+"' )" );
+            s.executeUpdate("INSERT INTO supplier (nama_sup,kontak) VALUES ('"+nama+"','"+kontak+"' )" );
             
             JOptionPane.showMessageDialog(null, "Data Saved");
 
@@ -366,12 +371,12 @@ public class supplier extends javax.swing.JPanel {
         
         String sid = sup_src.getText();
         String nama = sup_name.getText();
-        String kon = kontak.getText();
+        String kontak = kon.getText();
 
         try {
 
             Statement s = db.mycon().createStatement();
-            s.executeUpdate("UPDATE produk SET nama_sup='"+nama+"',kontak='"+kon+"' WHERE sid='"+sid+"' ");
+            s.executeUpdate("UPDATE produk SET nama_sup='"+nama+"',kontak='"+kontak+"' WHERE sid='"+sid+"' ");
 
             JOptionPane.showMessageDialog(null, "Data Updated");
 
@@ -394,7 +399,7 @@ public class supplier extends javax.swing.JPanel {
             if (rs.next()) {
 
                 sup_name.setText(rs.getString("nama_sup"));
-                kontak.setText(rs.getString("kontak"));
+                kon.setText(rs.getString("kontak"));
                 
 
             }
@@ -408,12 +413,21 @@ public class supplier extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
+        
+        
         String id = sup_src.getText();
 
         try {
+            
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to Delete the record","Warning",JOptionPane.YES_NO_OPTION);
+            
+            if(dialogResult == JOptionPane.YES_OPTION)
+            
+            {  
             Statement s = db.mycon().createStatement();
             s.executeUpdate("DELETE FROM supplier WHERE sid = '"+id+"' ");
             JOptionPane.showMessageDialog(null, "Data Deleted");
+            }
 
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
@@ -463,6 +477,25 @@ public class supplier extends javax.swing.JPanel {
 
     }//GEN-LAST:event_sup_src1KeyReleased
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+        int r = jTable1.getSelectedRow();
+        
+        String id  = jTable1.getValueAt(r, 0).toString();
+        String nama = jTable1.getValueAt(r, 1).toString();
+        String kontak = jTable1.getValueAt(r, 2).toString();
+  
+                sup_src.setText(id);
+                sup_name.setText(nama);
+                kon.setText(kontak);
+                
+        
+
+
+
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -479,7 +512,7 @@ public class supplier extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField kontak;
+    private javax.swing.JTextField kon;
     private javax.swing.JPanel sales_pan;
     private javax.swing.JTextField sup_name;
     private javax.swing.JTextField sup_src;

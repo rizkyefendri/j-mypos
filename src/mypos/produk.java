@@ -583,9 +583,16 @@ public class produk extends javax.swing.JPanel {
         String id = p_src.getText();
        
         try {
+            
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to Delete the record","Warning",JOptionPane.YES_NO_OPTION);
+            
+            if(dialogResult == JOptionPane.YES_OPTION)
+            
+            {
             Statement s = db.mycon().createStatement();
-            s.executeUpdate("DELETE FROM product WHERE pid = '"+id+"' ");
+            s.executeUpdate("DELETE FROM produk WHERE pid = '"+id+"' ");
             JOptionPane.showMessageDialog(null, "Data Deleted");
+            }
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);

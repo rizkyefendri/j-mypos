@@ -183,7 +183,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel93">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Product Code"/>
+                <Property name="text" type="java.lang.String" value="Barcode"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="procode2">
@@ -237,14 +237,14 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel94">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Product Name"/>
+                <Property name="text" type="java.lang.String" value="Nama Produk"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtproduct10">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel95">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Price"/>
+                <Property name="text" type="java.lang.String" value="Harga"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtprice2">

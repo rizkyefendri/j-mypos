@@ -5,6 +5,7 @@
  */
 package mypos;
 
+import java.awt.Component;
 import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -26,7 +28,7 @@ public class produk extends javax.swing.JPanel {
         initComponents();
         tb_load();
     }
-    
+
     public void tb_load(){
   
   
@@ -41,6 +43,7 @@ public class produk extends javax.swing.JPanel {
           while (rs.next()) {              
               
               Vector v = new Vector();
+
               
               v.add(rs.getString(1));
               v.add(rs.getString(2));
@@ -78,7 +81,7 @@ public class produk extends javax.swing.JPanel {
         p_src = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         nm_pro = new javax.swing.JTextField();
-        bcode_pro = new javax.swing.JTextField();
+        bcode = new javax.swing.JTextField();
         hrg_gro = new javax.swing.JTextField();
         qty_pro = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -93,9 +96,10 @@ public class produk extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         des_pro = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -156,10 +160,10 @@ public class produk extends javax.swing.JPanel {
             }
         });
 
-        bcode_pro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        bcode_pro.addActionListener(new java.awt.event.ActionListener() {
+        bcode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bcode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bcode_proActionPerformed(evt);
+                bcodeActionPerformed(evt);
             }
         });
 
@@ -213,13 +217,6 @@ public class produk extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Update");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         jButton4.setText("Delete");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +228,20 @@ public class produk extends javax.swing.JPanel {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Update");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Clear");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -256,24 +267,27 @@ public class produk extends javax.swing.JPanel {
                                     .addComponent(qty_pro)
                                     .addComponent(hrg_ecer)
                                     .addComponent(hrg_gro)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)))
+                                    .addComponent(jScrollPane3)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bcode_pro)
+                                    .addComponent(bcode)
                                     .addComponent(nm_pro)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -285,7 +299,7 @@ public class produk extends javax.swing.JPanel {
                     .addComponent(nm_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bcode_pro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -311,9 +325,10 @@ public class produk extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -355,12 +370,12 @@ public class produk extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(p_src1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(p_src1)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,7 +385,7 @@ public class produk extends javax.swing.JPanel {
                     .addComponent(jLabel8)
                     .addComponent(p_src1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addGap(56, 56, 56))
         );
 
@@ -408,7 +423,7 @@ public class produk extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pro_pan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -420,9 +435,9 @@ public class produk extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nm_proActionPerformed
 
-    private void bcode_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcode_proActionPerformed
+    private void bcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bcode_proActionPerformed
+    }//GEN-LAST:event_bcodeActionPerformed
 
     private void qty_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qty_proActionPerformed
         // TODO add your handling code here:
@@ -441,7 +456,7 @@ public class produk extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         String nama = nm_pro.getText();
-        String barcode = bcode_pro.getText();
+        String barcode = bcode.getText();
         String grosir = hrg_gro.getText();
         String eceran = hrg_ecer.getText();
         String qty = qty_pro.getText();
@@ -452,7 +467,10 @@ public class produk extends javax.swing.JPanel {
             
             Statement s = db.mycon().createStatement();
           // `pid`, `nama_produk`, `bar_code`, `grosir`, `eceran`, `qty` , nama_sales, deskripsi
-            s.executeUpdate("INSERT INTO produk (nama_produk,bar_code,grosir,eceran,qty,nama_sales,deskripsi,tgl_masuk) VALUES ('"+nama+"','"+barcode+"','"+grosir+"','"+eceran+"','"+qty+"','"+sales+"','"+des+"',now())");
+            s.executeUpdate("INSERT INTO produk (nama_produk,bar_code,grosir,eceran,qty,nama_sales,deskripsi,tgl_masuk) "
+                    + "VALUES ('"+nama+"','"+barcode+"','"+grosir+"','"+eceran+"','"+qty+"','"+sales+"','"+des+"',now())");
+            
+            
             JOptionPane.showMessageDialog(null, "Data Saved");
             
             
@@ -501,7 +519,7 @@ public class produk extends javax.swing.JPanel {
             
             
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             tb_load();
             
         }
@@ -524,7 +542,7 @@ public class produk extends javax.swing.JPanel {
 // `pid`, `nama_produk`, `bar_code`, `grosir`, `eceran`, `qty` , nama_sales, deskripsi
 
                 nm_pro.setText(rs.getString("nama_produk"));
-                bcode_pro.setText(rs.getString("bar_code"));
+                bcode.setText(rs.getString("bar_code"));
                 hrg_gro.setText(rs.getString("grosir"));
                 hrg_ecer.setText(rs.getString("eceran"));
                 qty_pro.setText(rs.getString("qty"));
@@ -549,7 +567,7 @@ public class produk extends javax.swing.JPanel {
         
         String id = p_src.getText();
         String nama = nm_pro.getText();
-        String barcode = bcode_pro.getText();
+        String barcode = bcode.getText();
         String grosir = hrg_gro.getText();
         String eceran = hrg_ecer.getText();
         String qty = qty_pro.getText();
@@ -567,7 +585,7 @@ public class produk extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Data Updated");
             
             
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
         }
         
         
@@ -621,7 +639,7 @@ public class produk extends javax.swing.JPanel {
        
                 p_src.setText(id);
                 nm_pro.setText(nama);
-                bcode_pro.setText(barcode);
+                bcode.setText(barcode);
                 hrg_gro.setText(grosir);
                 hrg_ecer.setText(eceran);
                 qty_pro.setText(qty);
@@ -632,9 +650,25 @@ public class produk extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+    for(Component c:jPanel2.getComponents()){
+        
+     if (c instanceof JTextComponent){   
+         
+         ((JTextComponent)c).setText("");
+    }  
+    
+    }
+
+    des_pro.setText(" ");
+    p_src.setText("");
+    
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bcode_pro;
+    private javax.swing.JTextField bcode;
     private javax.swing.JTextArea des_pro;
     private javax.swing.JTextField hrg_ecer;
     private javax.swing.JTextField hrg_gro;
@@ -642,6 +676,7 @@ public class produk extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

@@ -165,7 +165,7 @@ public class kasir extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Status :");
 
-        txtstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Deactive" }));
+        txtstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Pilih Status--", "Active", "Deactive" }));
 
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -306,7 +306,7 @@ public class kasir extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Cari Nama :");
+        jLabel8.setText("Search :");
 
         p_src1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         p_src1.addActionListener(new java.awt.event.ActionListener() {
@@ -314,12 +314,17 @@ public class kasir extends javax.swing.JPanel {
                 p_src1ActionPerformed(evt);
             }
         });
+        p_src1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                p_src1KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
@@ -348,7 +353,7 @@ public class kasir extends javax.swing.JPanel {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE))
         );
         kas_panLayout.setVerticalGroup(
             kas_panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,6 +538,42 @@ public class kasir extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void p_src1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_p_src1KeyReleased
+
+        String name = p_src1.getText();
+        
+        try {
+            
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            dt.setRowCount(0);
+            Statement s = db.mycon().createStatement();
+            
+            ResultSet rs = s.executeQuery("SELECT * FROM kasir WHERE nama_kasir LIKE '%"+name+"%' ");
+            
+            while (rs.next()) {                
+                Vector v = new Vector();
+                
+                v.add(rs.getString("eid"));
+                v.add(rs.getString("nama_kasir"));
+                v.add(rs.getString("kontak"));
+                v.add(rs.getString("status"));
+                
+                dt.addRow(v);
+                
+                
+            }
+            
+            
+            
+            
+            
+        } catch (SQLException e) {
+            tb_load();
+            
+        }
+        
+    }//GEN-LAST:event_p_src1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

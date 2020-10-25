@@ -75,7 +75,6 @@ public class home extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jToggleButton1.setBackground(new java.awt.Color(255, 255, 255));
         home_btn.add(jToggleButton1);
         jToggleButton1.setText("Produk");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -353,7 +353,7 @@ public class kasir extends javax.swing.JPanel {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
         );
         kas_panLayout.setVerticalGroup(
             kas_panLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +375,7 @@ public class kasir extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(kas_pan, javax.swing.GroupLayout.DEFAULT_SIZE, 1382, Short.MAX_VALUE)
+                    .addComponent(kas_pan, javax.swing.GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -551,17 +551,18 @@ public class kasir extends javax.swing.JPanel {
             
             ResultSet rs = s.executeQuery("SELECT * FROM kasir WHERE nama_kasir LIKE '%"+name+"%' ");
             
-            while (rs.next()) {                
-                Vector v = new Vector();
-                
-                v.add(rs.getString("eid"));
-                v.add(rs.getString("nama_kasir"));
-                v.add(rs.getString("kontak"));
-                v.add(rs.getString("status"));
-                
-                dt.addRow(v);
+            while (rs.next()) { 
                 
                 
+                dt.addRow(new Object[]{
+                    
+                rs.getString("eid"),
+                rs.getString("nama_kasir"),
+                rs.getString("kontak"),
+                rs.getString("status")
+                
+                });
+   
             }
             
             

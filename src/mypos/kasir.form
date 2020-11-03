@@ -25,7 +25,7 @@
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="kas_pan" pref="1382" max="32767" attributes="0"/>
+                  <Component id="kas_pan" pref="1020" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -64,7 +64,7 @@
                       <Component id="jPanel1" pref="575" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jPanel3" pref="817" max="32767" attributes="0"/>
+                  <Component id="jPanel3" pref="445" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

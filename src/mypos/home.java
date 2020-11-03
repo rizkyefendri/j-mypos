@@ -208,6 +208,7 @@ public class home extends javax.swing.JFrame {
         pos pos = new pos();
         jpload.jPanelLoader(panel_load, pos);
         
+        
 
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 

@@ -21,23 +21,12 @@ import javax.swing.table.DefaultTableModel;
  * @author OMEN
  */
 public class pos extends javax.swing.JPanel {
-
-    /**
-     * Creates new form pos
-     */
+    
     public pos() {
         initComponents();
         invoice_load();
         bill_tot.setHorizontalAlignment(SwingConstants.RIGHT);
-    //    qty.setHorizontalAlignment(SwingConstants.RIGHT);
-    
-    
-    }
-    
-    //String format = String.format(Locale.UK, "%,d");
-    
-    NumberFormat format = NumberFormat.getCurrencyInstance(Locale.UK);
-    
+    } 
     
     private void invoice_load(){
 
@@ -77,15 +66,9 @@ public class pos extends javax.swing.JPanel {
             
             total += value ;
             
-     }
-            
-            
+     }         
             
         bill_tot.setText(Double.toString(total));
-        
-        
-        
-    
  }
  
     public void tot(){
@@ -611,10 +594,10 @@ public class pos extends javax.swing.JPanel {
             for (int i = 0; i < rc; i++) {
                 
                 String invo_id = dt.getValueAt(i, 0).toString(); // get inid
-                String p_name = dt.getValueAt(i, 1).toString(); // get product name
-                String bar_code = dt.getValueAt(i, 2).toString(); // get barcode
-                String quant = dt.getValueAt(i, 3).toString(); // get product qty
-                String un_price = dt.getValueAt(i, 4).toString(); // get product unit price
+                String p_name = dt.getValueAt(i, 2).toString(); // get product name
+                String bar_code = dt.getValueAt(i, 1).toString(); // get barcode
+                String quant = dt.getValueAt(i, 4).toString(); // get product qty
+                String un_price = dt.getValueAt(i, 3).toString(); // get product unit price
                 String tot_price = dt.getValueAt(i, 5).toString(); // get product total Price
             
                 // cart DB
@@ -624,15 +607,27 @@ public class pos extends javax.swing.JPanel {
             }
             
                 JOptionPane.showMessageDialog(null, "Data Tersimpan");
+                
+                barcode.requestFocus();
+                
+                dt.setRowCount(0);
+                bill_tot.setText("");
+                paid_amt.setText("");
+                bal.setText("");
             
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
         }
+        
+        
+        
+        
 
 
 
 
-
+    
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

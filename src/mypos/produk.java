@@ -654,9 +654,9 @@ public class produk extends javax.swing.JPanel {
 
     for(Component c:jPanel2.getComponents()){
         
-     if (c instanceof JTextComponent){   
+     if (c instanceof JTextComponent jTextComponent){   
          
-         ((JTextComponent)c).setText("");
+            jTextComponent.setText("");
     }  
     
     }

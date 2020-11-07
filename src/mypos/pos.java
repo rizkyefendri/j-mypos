@@ -10,11 +10,10 @@ import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.NumberFormat;
-import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import static mypos.home.nm_kas;
 
 /**
  *
@@ -27,6 +26,8 @@ public class pos extends javax.swing.JPanel {
         invoice_load();
         bill_tot.setHorizontalAlignment(SwingConstants.RIGHT);
     } 
+    
+    
     
     private void invoice_load(){
 
@@ -115,7 +116,6 @@ public class pos extends javax.swing.JPanel {
                     }
                     
                     
-  //                  bill_tot.setText(Integer.toString(sum)); 
                     
                     String str = String.format("%,d", sum);
                     
@@ -126,7 +126,7 @@ public class pos extends javax.swing.JPanel {
         
         
         
-       String b_code = barcode.getText(); 
+       String b_code = barcode.getText();
        String quant = qty.getText();
        String invoice = inid.getText();
          
@@ -270,7 +270,15 @@ public class pos extends javax.swing.JPanel {
             new String [] {
                 "Invoice", "Barcode", "Nama Produk", "Harga", "Qty", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(2).setResizable(false);
@@ -475,7 +483,7 @@ public class pos extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(0, 10, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -504,18 +512,6 @@ public class pos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_barcodeActionPerformed
 
-    private void bill_totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_totActionPerformed
-
-        
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bill_totActionPerformed
-
-    private void bill_totMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_totMouseClicked
-
-        bill_tot.setEditable(false);
-
-    }//GEN-LAST:event_bill_totMouseClicked
-
     private void barcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcodeKeyReleased
 
     }//GEN-LAST:event_barcodeKeyReleased
@@ -536,8 +532,6 @@ public class pos extends javax.swing.JPanel {
 
     private void paid_amtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paid_amtKeyReleased
         
-
-
         tot();
             
     }//GEN-LAST:event_paid_amtKeyReleased
@@ -584,9 +578,10 @@ public class pos extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
+        //insert into cart db
+        
         try {
             
-            // `cartid`, `INID`, `Product_Name`, `Bar_code`, `qty`, `Unit_Price`, `Total_Price`
             
           DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
           int rc = dt.getRowCount();
@@ -602,24 +597,64 @@ public class pos extends javax.swing.JPanel {
             
                 // cart DB
              Statement s = db.mycon().createStatement();
-             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total) VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"') ");
+             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total) "
+                     + "VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"') ");
            
             }
             
                 JOptionPane.showMessageDialog(null, "Data Tersimpan");
                 
-                barcode.requestFocus();
+            
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+        }
+        
+        //insert into sales db
+        
+        try {
+
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            int rc = dt.getRowCount();
+
+            
+            for (int i = 0; i < rc; i++) {
+                
+            String nm_kasir =login.txtuser.getText() ;
+            String pay = paid_amt.getText();
+            String balance = bal.getText();
+            String tot_price = bill_tot.getText();
+             
+            
+            Statement s = db.mycon().createStatement();
+            s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
+                    + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+pay+"','"+balance+"') ");
+                   
+                    
+            barcode.requestFocus();
                 
                 dt.setRowCount(0);
                 bill_tot.setText("");
                 paid_amt.setText("");
                 bal.setText("");
             
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
         
         
+        //save last inid number
+        try {
+            
+           String id = inid.getText(); 
+            Statement s = db.mycon().createStatement();
+            s.executeUpdate("UPDATE  extra SET val='"+id+"' WHERE exid = 1");
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         
         
 
@@ -629,6 +664,16 @@ public class pos extends javax.swing.JPanel {
     
     
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void bill_totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bill_totActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bill_totActionPerformed
+
+    private void bill_totMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bill_totMouseClicked
+
+        bill_tot.setEditable(false);
+    }//GEN-LAST:event_bill_totMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

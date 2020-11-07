@@ -10,14 +10,15 @@ package mypos;
  * @author OMEN
  */
 public class home extends javax.swing.JFrame {
+    
+   String lname;
 
     JpanelLoader jpload = new JpanelLoader();
 
-    String lname;
+    
     
     public home() {
         initComponents();
-        this.setExtendedState(home.MAXIMIZED_BOTH);
 
     }
     
@@ -26,13 +27,14 @@ public class home extends javax.swing.JFrame {
                 initComponents();
 
         this.lname = name;
-        cashier.setText(lname);
-        this.setExtendedState(home.MAXIMIZED_BOTH);
+        nm_kas.setText(lname);
+        this.setExtendedState(home.MAXIMIZED_BOTH);     
 
     }
+    
 
-
-    @SuppressWarnings("unchecked")
+    
+   @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -40,7 +42,7 @@ public class home extends javax.swing.JFrame {
         bg_panel = new javax.swing.JPanel();
         panel_load = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        cashier = new javax.swing.JLabel();
+        nm_kas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
@@ -68,8 +70,10 @@ public class home extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(67, 50, 85));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        cashier.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        cashier.setText("jLabel1");
+        nm_kas.setBackground(new java.awt.Color(255, 255, 255));
+        nm_kas.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        nm_kas.setForeground(new java.awt.Color(255, 255, 255));
+        nm_kas.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,15 +81,15 @@ public class home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nm_kas)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(nm_kas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -249,41 +253,10 @@ public class home extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new home().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg_panel;
-    private javax.swing.JLabel cashier;
     private javax.swing.ButtonGroup home_btn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -293,6 +266,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
+    public static javax.swing.JLabel nm_kas;
     private javax.swing.JPanel panel_load;
     // End of variables declaration//GEN-END:variables
 }

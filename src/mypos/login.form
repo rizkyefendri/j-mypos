@@ -122,6 +122,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtuser">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtpass">
           <Events>

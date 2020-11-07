@@ -155,15 +155,7 @@ public class login extends javax.swing.JFrame {
     public void load()
     {                         
         try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            con1 = DriverManager.getConnection("jdbc:mysql://localhost/javapos?serverTimezone=UTC","root","");
-//            insert = con1.prepareStatement("SELECT * FROM cashier WHERE username=? and password=? ");
-//                                       
-//            insert.setString(1, txtuser.getText());
-//            insert.setString(2,txtpass.getText());
-//            rs1=insert.executeQuery();     
-
-
+  
        String uname = txtuser.getText();
        String pass = txtpass.getText();
 
@@ -173,6 +165,8 @@ public class login extends javax.swing.JFrame {
        
      if(rs.next())
        {         
+                    this.hide();
+
          new home(txtuser.getText()).setVisible(true); 
              
        }
@@ -245,6 +239,7 @@ public class login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new login().setVisible(true);
             }
@@ -259,6 +254,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtpass;
-    private javax.swing.JTextField txtuser;
+    public static javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }

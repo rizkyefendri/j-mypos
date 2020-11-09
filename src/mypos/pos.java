@@ -29,6 +29,8 @@ public class pos extends javax.swing.JPanel {
     
     
     
+    
+    
     private void invoice_load(){
 
       // load last invoice number
@@ -96,15 +98,6 @@ public class pos extends javax.swing.JPanel {
        String str = String.format("%,d", due);
        bal.setText(str);
  
-
-//
-//        int pay = Integer.parseInt(paid_amt.getText());
-//        String total = String.valueOf(bill_tot.getText());
-//        int tot = Integer.valueOf(total);
-//        
-//        int balance = pay - tot;
-//        
-//        bal.setText(String.valueOf(balance));
 
  }
     
@@ -602,7 +595,7 @@ public class pos extends javax.swing.JPanel {
            
             }
             
-                JOptionPane.showMessageDialog(null, "Data Tersimpan");
+                
                 
             
         } catch (HeadlessException | SQLException e) {
@@ -614,10 +607,9 @@ public class pos extends javax.swing.JPanel {
         try {
 
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            int rc = dt.getRowCount();
+            
 
             
-            for (int i = 0; i < rc; i++) {
                 
             String nm_kasir =login.txtuser.getText() ;
             String pay = paid_amt.getText();
@@ -628,8 +620,9 @@ public class pos extends javax.swing.JPanel {
             Statement s = db.mycon().createStatement();
             s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
                     + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+pay+"','"+balance+"') ");
+            
                    
-                    
+            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
             barcode.requestFocus();
                 
                 dt.setRowCount(0);
@@ -637,7 +630,7 @@ public class pos extends javax.swing.JPanel {
                 paid_amt.setText("");
                 bal.setText("");
             
-            }
+            
             
         } catch (SQLException ex) {
             System.out.println(ex);

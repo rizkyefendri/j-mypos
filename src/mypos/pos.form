@@ -228,7 +228,7 @@
                         <Column editable="false" title="Nama Produk" type="java.lang.Object"/>
                         <Column editable="false" title="Harga" type="java.lang.Object"/>
                         <Column editable="false" title="Qty" type="java.lang.Object"/>
-                        <Column editable="false" title="Total" type="java.lang.Object"/>
+                        <Column editable="false" title="Total" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

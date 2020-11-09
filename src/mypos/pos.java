@@ -167,6 +167,102 @@ public class pos extends javax.swing.JPanel {
         }
    }
     
+    public void db_insert(){
+        
+        //insert into cart db
+        
+        try {
+            
+            
+          DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+          int rc = dt.getRowCount();
+          
+            for (int i = 0; i < rc; i++) {
+                
+                String invo_id = dt.getValueAt(i, 0).toString(); // get inid
+                String p_name = dt.getValueAt(i, 2).toString(); // get product name
+                String bar_code = dt.getValueAt(i, 1).toString(); // get barcode
+                String quant = dt.getValueAt(i, 4).toString(); // get product qty
+                String un_price = dt.getValueAt(i, 3).toString(); // get product unit price
+                String tot_price = dt.getValueAt(i, 5).toString(); // get product total Price
+            
+                // cart DB
+             Statement s = db.mycon().createStatement();
+             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total) "
+                     + "VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"') ");
+           
+            }
+            
+                
+                
+            
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+        }
+        
+        //insert into sales db
+        
+        try {
+
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            
+
+            
+                
+            String nm_kasir =login.txtuser.getText() ;
+            String pay = paid_amt.getText();
+            String balance = bal.getText();
+            String tot_price = bill_tot.getText();
+            
+            int paying = Integer.valueOf(pay);
+            
+            String str = String.format("%,d", paying);
+             
+            
+            Statement s = db.mycon().createStatement();
+            s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
+                    + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+str+"','"+balance+"') ");
+            
+                   
+            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
+            barcode.requestFocus();
+                
+                dt.setRowCount(0);
+                bill_tot.setText("");
+                paid_amt.setText("");
+                bal.setText("");
+            
+            
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        
+        //save last inid number
+        try {
+            
+           String id = inid.getText(); 
+            Statement s = db.mycon().createStatement();
+            s.executeUpdate("UPDATE  extra SET val='"+id+"' WHERE exid = 1");
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+   
+    }
+    
+    
+    public void bill_print(){
+        
+        
+        
+        String sub = bill_tot.getText();
+         String pay1 = paid_amt.getText();
+         String bal1 = bal.getText();
+    }
+    
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -264,9 +360,16 @@ public class pos extends javax.swing.JPanel {
                 "Invoice", "Barcode", "Nama Produk", "Harga", "Qty", "Total"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -571,89 +674,7 @@ public class pos extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        //insert into cart db
-        
-        try {
-            
-            
-          DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-          int rc = dt.getRowCount();
-          
-            for (int i = 0; i < rc; i++) {
-                
-                String invo_id = dt.getValueAt(i, 0).toString(); // get inid
-                String p_name = dt.getValueAt(i, 2).toString(); // get product name
-                String bar_code = dt.getValueAt(i, 1).toString(); // get barcode
-                String quant = dt.getValueAt(i, 4).toString(); // get product qty
-                String un_price = dt.getValueAt(i, 3).toString(); // get product unit price
-                String tot_price = dt.getValueAt(i, 5).toString(); // get product total Price
-            
-                // cart DB
-             Statement s = db.mycon().createStatement();
-             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total) "
-                     + "VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"') ");
-           
-            }
-            
-                
-                
-            
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
-        }
-        
-        //insert into sales db
-        
-        try {
-
-            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            
-
-            
-                
-            String nm_kasir =login.txtuser.getText() ;
-            String pay = paid_amt.getText();
-            String balance = bal.getText();
-            String tot_price = bill_tot.getText();
-             
-            
-            Statement s = db.mycon().createStatement();
-            s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
-                    + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+pay+"','"+balance+"') ");
-            
-                   
-            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
-            barcode.requestFocus();
-                
-                dt.setRowCount(0);
-                bill_tot.setText("");
-                paid_amt.setText("");
-                bal.setText("");
-            
-            
-            
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        
-        
-        //save last inid number
-        try {
-            
-           String id = inid.getText(); 
-            Statement s = db.mycon().createStatement();
-            s.executeUpdate("UPDATE  extra SET val='"+id+"' WHERE exid = 1");
-            
-            
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        
-        
-
-
-
-
+        db_insert();
     
     
     }//GEN-LAST:event_jButton3ActionPerformed

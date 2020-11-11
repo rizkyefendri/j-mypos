@@ -226,8 +226,8 @@
                         <Column editable="false" title="Invoice" type="java.lang.Object"/>
                         <Column editable="false" title="Barcode" type="java.lang.Object"/>
                         <Column editable="false" title="Nama Produk" type="java.lang.Object"/>
-                        <Column editable="false" title="Harga" type="java.lang.Object"/>
-                        <Column editable="false" title="Qty" type="java.lang.Object"/>
+                        <Column editable="false" title="Harga" type="java.lang.Integer"/>
+                        <Column editable="false" title="Qty" type="java.lang.Integer"/>
                         <Column editable="false" title="Total" type="java.lang.Integer"/>
                       </Table>
                     </Property>

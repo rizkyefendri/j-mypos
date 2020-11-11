@@ -7,9 +7,12 @@ package mypos;
 
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -223,7 +226,8 @@ public class pos extends javax.swing.JPanel {
             s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
                     + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+str+"','"+balance+"') ");
             
-                   
+            //bill_print(str); 
+            
             JOptionPane.showMessageDialog(null, "Data Tersimpan");        
             barcode.requestFocus();
                 
@@ -259,8 +263,17 @@ public class pos extends javax.swing.JPanel {
         
         
         String sub = bill_tot.getText();
-         String pay1 = paid_amt.getText();
-         String bal1 = bal.getText();
+        String pay1 = paid_amt.getText();
+        String bal1 = bal.getText();
+
+        try {
+            
+            new bill_print(sub,pay1,bal1,jTable1.getModel()).setVisible(true);
+    
+        } catch (PrinterException ex) {
+            Logger.getLogger(pos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
   
@@ -361,7 +374,7 @@ public class pos extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -674,6 +687,9 @@ public class pos extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
+        
+        
+        bill_print();
         db_insert();
     
     

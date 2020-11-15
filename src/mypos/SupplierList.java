@@ -20,12 +20,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author OMEN
  */
-public class Supplier extends javax.swing.JPanel {
+public class SupplierList extends javax.swing.JPanel {
 
     /**
      * Creates new form produk
      */
-    public Supplier() {
+    public SupplierList() {
         initComponents();
         tb_load();
     }

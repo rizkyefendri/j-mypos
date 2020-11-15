@@ -19,12 +19,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author OMEN
  */
-public class Kasir extends javax.swing.JPanel {
+public class kasir extends javax.swing.JPanel {
 
     /**
      * Creates new form produk
      */
-    public Kasir() {
+    public kasir() {
         initComponents();
         tb_load();
     }

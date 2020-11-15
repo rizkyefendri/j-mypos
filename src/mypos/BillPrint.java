@@ -29,7 +29,7 @@ public class BillPrint extends javax.swing.JFrame {
 
 
 
-String inid = Pos.inid.getText();
+String inid = pos.inid.getText();
 
 
 
@@ -90,13 +90,13 @@ String inid = Pos.inid.getText();
             g2d.drawString(" Item Name      Qty            Price   ",10,y);y+=yShift;
             g2d.drawString("-------------------------------------",10,y);y+=headerRectHeight;
      
-            for(int i=0; i<Pos.jTable1.getRowCount(); i++)
+            for(int i=0; i<pos.jTable1.getRowCount(); i++)
             {
                 
-                String product = (String) Pos.jTable1.getValueAt(i,2);
-                String price = (String) Pos.jTable1.getValueAt(i,3);  
-                String qty = (String) Pos.jTable1.getValueAt(i,4);  
-                int total = (int) Pos.jTable1.getValueAt(i,5); 
+                String product = (String) pos.jTable1.getValueAt(i,2);
+                String price = (String) pos.jTable1.getValueAt(i,3);  
+                String qty = (String) pos.jTable1.getValueAt(i,4);  
+                int total = (int) pos.jTable1.getValueAt(i,5); 
                 
             g2d.drawString(" "+product+"    "+qty+"               "+price+"          ",10,y);y+=yShift;
             //g2d.drawString("      "+qty.get(i+" * "+itemPrice.get(a),10,y); g2d.drawString(subtotal.get(s),160,y);y+=yShift;

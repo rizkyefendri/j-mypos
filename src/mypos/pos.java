@@ -31,9 +31,9 @@ import javax.swing.table.TableColumnModel;
  *
  * @author OMEN
  */
-public class pos extends javax.swing.JPanel {
+public class Pos extends javax.swing.JPanel {
     
-    public pos() {
+    public Pos() {
         initComponents();
         invoice_load();
         bill_tot.setHorizontalAlignment(SwingConstants.RIGHT);

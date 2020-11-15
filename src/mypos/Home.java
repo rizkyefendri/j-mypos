@@ -9,7 +9,7 @@ package mypos;
  *
  * @author OMEN
  */
-public class home extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame {
     
    String lname;
 
@@ -17,18 +17,18 @@ public class home extends javax.swing.JFrame {
 
     
     
-    public home() {
+    public Home() {
         initComponents();
 
     }
     
     
-    public home(String name) {
+    public Home(String name) {
                 initComponents();
 
         this.lname = name;
         nm_kas.setText(lname);
-        this.setExtendedState(home.MAXIMIZED_BOTH);     
+        this.setExtendedState(Home.MAXIMIZED_BOTH);     
 
     }
     
@@ -218,7 +218,7 @@ public class home extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
     
-        produk pro = new produk();
+        Produk pro = new Produk();
         jpload.jPanelLoader(panel_load, pro);
         
     
@@ -226,7 +226,7 @@ public class home extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
     
-        supplier sal = new supplier();
+        Supplier sal = new Supplier();
         jpload.jPanelLoader(panel_load, sal);
         
 
@@ -234,7 +234,7 @@ public class home extends javax.swing.JFrame {
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
     
-        pos pos = new pos();
+        Pos pos = new Pos();
         jpload.jPanelLoader(panel_load, pos);
 
 
@@ -242,14 +242,14 @@ public class home extends javax.swing.JFrame {
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
 
-        kasir kas = new kasir();
+        Kasir kas = new Kasir();
         jpload.jPanelLoader(panel_load, kas);
 
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        login log = new login();
+        Login log = new Login();
         log.setVisible(true);
         this.hide();
 

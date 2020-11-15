@@ -19,12 +19,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author OMEN
  */
-public class kasir extends javax.swing.JPanel {
+public class Kasir extends javax.swing.JPanel {
 
     /**
      * Creates new form produk
      */
-    public kasir() {
+    public Kasir() {
         initComponents();
         tb_load();
     }
@@ -38,7 +38,7 @@ public class kasir extends javax.swing.JPanel {
           DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
           dt.setRowCount(0);
           
-          Statement s = db.mycon().createStatement();
+          Statement s = Database.mycon().createStatement();
           ResultSet rs = s.executeQuery(" SELECT * FROM kasir");
           
           while (rs.next()) {              
@@ -430,7 +430,7 @@ public class kasir extends javax.swing.JPanel {
         
         try {
             
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
           // `pid`, `nama_produk`, `bar_code`, `grosir`, `eceran`, `qty` , nama_sales, deskripsi
             s.executeUpdate("INSERT INTO kasir (nama_kasir,username,password,kontak,status,tgl_kerja) "
                     + "VALUES ('"+nama+"','"+username+"','"+password+"','"+kon+"','"+stat+"',now())");
@@ -472,7 +472,7 @@ public class kasir extends javax.swing.JPanel {
         String search = src.getText();
         try {
             
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             
             ResultSet rs = s.executeQuery(" SELECT * FROM kasir WHERE eid = '"+search+"'");
             
@@ -500,7 +500,7 @@ public class kasir extends javax.swing.JPanel {
         
         try {
             
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
           
             s.executeUpdate("UPDATE kasir SET nama_kasir = '"+nama+"',kontak = '"+kon+"',status = '"+stat+"',updated = now() WHERE eid = '"+id+"'");
             JOptionPane.showMessageDialog(null, "Data Updated");
@@ -525,7 +525,7 @@ public class kasir extends javax.swing.JPanel {
             if(dialogResult == JOptionPane.YES_OPTION)
             
             {
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("DELETE FROM kasir WHERE eid = '"+id+"' ");
             JOptionPane.showMessageDialog(null, "Data Deleted");
             }
@@ -547,7 +547,7 @@ public class kasir extends javax.swing.JPanel {
             
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM kasir WHERE nama_kasir LIKE '%"+name+"%' ");
             

@@ -19,12 +19,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author OMEN
  */
-public class produk extends javax.swing.JPanel {
+public class Produk extends javax.swing.JPanel {
 
     /**
      * Creates new form produk
      */
-    public produk() {
+    public Produk() {
         initComponents();
         tb_load();
     }
@@ -37,7 +37,7 @@ public class produk extends javax.swing.JPanel {
           DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
           dt.setRowCount(0);
           
-          Statement s = db.mycon().createStatement();
+          Statement s = Database.mycon().createStatement();
           ResultSet rs = s.executeQuery(" SELECT * FROM produk");
           
           while (rs.next()) {              
@@ -496,7 +496,7 @@ public class produk extends javax.swing.JPanel {
         
         try {
             
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
           // `pid`, `nama_produk`, `bar_code`, `grosir`, `eceran`, `qty` , nama_sales, deskripsi
             s.executeUpdate("INSERT INTO produk (nama_produk,bar_code,grosir,eceran,qty,nama_sales,deskripsi,tgl_masuk) "
                     + "VALUES ('"+nama+"','"+barcode+"','"+grosir+"','"+eceran+"','"+qty+"','"+sales+"','"+des+"',now())");
@@ -525,7 +525,7 @@ public class produk extends javax.swing.JPanel {
             
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM produk WHERE nama_produk LIKE '%"+name+"%' ");
             
@@ -564,7 +564,7 @@ public class produk extends javax.swing.JPanel {
         String search = p_src.getText();
         
         try {
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             
             ResultSet rs = s.executeQuery(" SELECT * FROM produk WHERE pid ='"+search+"'  ");
             
@@ -607,7 +607,7 @@ public class produk extends javax.swing.JPanel {
         
         try {
             
-          Statement s = db.mycon().createStatement();
+          Statement s = Database.mycon().createStatement();
           
           //  Full texts 	pid 	Product_Name 	Bar_code 	Price 	Qty 	Sid 
           
@@ -638,7 +638,7 @@ public class produk extends javax.swing.JPanel {
             if(dialogResult == JOptionPane.YES_OPTION)
             
             {
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("DELETE FROM produk WHERE pid = '"+id+"' ");
             JOptionPane.showMessageDialog(null, "Data Deleted");
             }

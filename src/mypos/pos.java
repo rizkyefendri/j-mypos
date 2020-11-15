@@ -5,26 +5,35 @@
  */
 package mypos;
 
+import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Currency;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import static mypos.home.nm_kas;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
+
 
 /**
  *
  * @author OMEN
  */
-public class pos extends javax.swing.JPanel {
+public class Pos extends javax.swing.JPanel {
     
-    public pos() {
+    public Pos() {
         initComponents();
         invoice_load();
         bill_tot.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -40,7 +49,7 @@ public class pos extends javax.swing.JPanel {
       
       try {
           
-        Statement s = db.mycon().createStatement();
+        Statement s = Database.mycon().createStatement();
         ResultSet rs = s.executeQuery("SELECT * FROM extra WHERE exid =1");
           
             if (rs.next()) {
@@ -75,6 +84,8 @@ public class pos extends javax.swing.JPanel {
      }         
             
         bill_tot.setText(Double.toString(total));
+        
+        
  }
  
     public void tot(){
@@ -87,7 +98,7 @@ public class pos extends javax.swing.JPanel {
                     }
         
         String paid_am = paid_amt.getText();
-        int paid = Integer.valueOf(paid_am);
+        int paid = Integer.parseInt(paid_am);
                 
 
         //double total = Double.parseDouble(tot);
@@ -118,7 +129,9 @@ public class pos extends javax.swing.JPanel {
                     bill_tot.setText(str);
     }
     
-    public void pos(){
+    
+    
+    public void posAct(){
         
         
         
@@ -126,14 +139,25 @@ public class pos extends javax.swing.JPanel {
        String quant = qty.getText();
        String invoice = inid.getText();
          
+
    
 
       try {
            
        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+       
+       
+
+       
+       TableColumnModel m = jTable1.getColumnModel();
+
+       
+        m.getColumn(5).setCellRenderer(NumberRenderer.getIntegerRenderer());
+        
+
 
          
-        Statement s = db.mycon().createStatement();
+        Statement s = Database.mycon().createStatement();
        ResultSet rs = s.executeQuery("SELECT * FROM produk WHERE bar_code='"+b_code+"' ");
        
 
@@ -146,6 +170,8 @@ public class pos extends javax.swing.JPanel {
                 int harga = Integer.parseInt(hrg);
                 int quantity = Integer.parseInt(quant);
                 int tot =  quantity*harga;
+                
+                
  
                 
                 dt.addRow(new Object[]
@@ -172,7 +198,7 @@ public class pos extends javax.swing.JPanel {
     
     public void db_insert(){
         
-        //insert into cart db
+        //insert into cart Database
         
         try {
             
@@ -188,11 +214,19 @@ public class pos extends javax.swing.JPanel {
                 String quant = dt.getValueAt(i, 4).toString(); // get product qty
                 String un_price = dt.getValueAt(i, 3).toString(); // get product unit price
                 String tot_price = dt.getValueAt(i, 5).toString(); // get product total Price
+                
+                String pay = paid_amt.getText();
+                String balance = bal.getText();
+            
+            
+                int paying = Integer.valueOf(pay);
+            
+                String str = String.format("%,d", paying);
             
                 // cart DB
-             Statement s = db.mycon().createStatement();
-             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total) "
-                     + "VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"') ");
+             Statement s = Database.mycon().createStatement();
+             s.executeUpdate(" INSERT INTO cart (INID, nama_produk, bar_code, qty, harga_ecer, total, pay, balance) "
+                     + "VALUES ('"+invo_id+"','"+p_name+"','"+bar_code+"','"+quant+"','"+un_price+"','"+tot_price+"','"+str+"','"+balance+"') ");
            
             }
             
@@ -203,7 +237,7 @@ public class pos extends javax.swing.JPanel {
             System.out.println(e);
         }
         
-        //insert into sales db
+        //insert into sales Database
         
         try {
 
@@ -212,7 +246,7 @@ public class pos extends javax.swing.JPanel {
 
             
                 
-            String nm_kasir =login.txtuser.getText() ;
+            String nm_kasir =Login.txtuser.getText() ;
             String pay = paid_amt.getText();
             String balance = bal.getText();
             String tot_price = bill_tot.getText();
@@ -222,13 +256,13 @@ public class pos extends javax.swing.JPanel {
             String str = String.format("%,d", paying);
              
             
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("INSERT INTO sales(date, subtotal, cashier, pay, balance) "
                     + "VALUES(now(),'"+tot_price+"','"+nm_kasir+"','"+str+"','"+balance+"') ");
             
-            //bill_print(str); 
+             
             
-            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
+//            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
             barcode.requestFocus();
                 
                 dt.setRowCount(0);
@@ -247,7 +281,7 @@ public class pos extends javax.swing.JPanel {
         try {
             
            String id = inid.getText(); 
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("UPDATE  extra SET val='"+id+"' WHERE exid = 1");
             
             
@@ -258,25 +292,88 @@ public class pos extends javax.swing.JPanel {
     }
     
     
-    public void bill_print(){
-        
-        
-        
-        String sub = bill_tot.getText();
-        String pay1 = paid_amt.getText();
-        String bal1 = bal.getText();
-
-        try {
-            
-            new bill_print(sub,pay1,bal1,jTable1.getModel()).setVisible(true);
+ 
     
-        } catch (PrinterException ex) {
-            Logger.getLogger(pos.class.getName()).log(Level.SEVERE, null, ex);
+    double bHeight=0.0;
+    
+    public void bill_print(){
+
+        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+          int rc = dt.getRowCount();
+          for (int i = 0; i < rc; i++) {
+              String p_name = dt.getValueAt(i, 2).toString();
+              
+          
+          
+        
+//        String sub = bill_tot.getText();
+//        String pay = paid_amt.getText();
+//        String bal1 = bal.getText();
+//        
+//        int paying = Integer.valueOf(pay);
+//        String pay1 = String.format("%,d", paying);
+        
+        bHeight = Double.valueOf(p_name);
+        
+
+        PrinterJob pj = PrinterJob.getPrinterJob();        
+        pj.setPrintable((Printable) new BillPrint(),getPageFormat(pj));
+        try {
+             pj.print();
+          
         }
+         catch (PrinterException ex) {
+             System.out.println(ex);
+        }
+        
+        
+//        try {
+//            
+//            new BillPrint(sub,pay1,bal1,jTable1.getModel()).setVisible(true);
+//             
+//    
+//        } catch (PrinterException ex) {
+//            System.out.println(ex);
+//        }
+          }
         
     }
     
-  
+    
+    
+    public PageFormat getPageFormat(PrinterJob pj)
+{
+    
+    PageFormat pf = pj.defaultPage();
+    Paper paper = pf.getPaper();    
+
+    double bodyHeight = bHeight;  
+    double headerHeight = 5.0;                  
+    double footerHeight = 5.0;        
+    double width = cm_to_pp(8); 
+    double height = cm_to_pp(headerHeight+bodyHeight+footerHeight); 
+    paper.setSize(width, height);
+    paper.setImageableArea(0,10,width,height - cm_to_pp(1));  
+            
+    pf.setOrientation(PageFormat.PORTRAIT);  
+    pf.setPaper(paper);    
+
+    return pf;
+}
+   
+    
+    
+    protected static double cm_to_pp(double cm)
+    {            
+	        return toPPI(cm * 0.393600787);            
+    }
+ 
+protected static double toPPI(double inch)
+    {            
+	        return inch * 72d;            
+    }
+    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -628,7 +725,7 @@ public class pos extends javax.swing.JPanel {
     private void barcodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcodeKeyPressed
 
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-        pos();
+        posAct();
         }
         
         
@@ -655,7 +752,7 @@ public class pos extends javax.swing.JPanel {
    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
 
 
-        pos();
+        posAct();
         
         barcode.requestFocus();
    }
@@ -710,7 +807,7 @@ public class pos extends javax.swing.JPanel {
     private javax.swing.JTextField bal;
     private javax.swing.JTextField barcode;
     private javax.swing.JTextField bill_tot;
-    private javax.swing.JLabel inid;
+    public static javax.swing.JLabel inid;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -725,7 +822,7 @@ public class pos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private javax.swing.JTextField paid_amt;
     private javax.swing.JPanel pos_pan;
     private javax.swing.JTextField qty;

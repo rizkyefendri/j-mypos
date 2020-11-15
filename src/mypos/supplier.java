@@ -20,12 +20,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author OMEN
  */
-public class supplier extends javax.swing.JPanel {
+public class Supplier extends javax.swing.JPanel {
 
     /**
      * Creates new form produk
      */
-    public supplier() {
+    public Supplier() {
         initComponents();
         tb_load();
     }
@@ -38,7 +38,7 @@ public class supplier extends javax.swing.JPanel {
           DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
           dt.setRowCount(0);
           
-          Statement s = db.mycon().createStatement();
+          Statement s = Database.mycon().createStatement();
           ResultSet rs = s.executeQuery(" SELECT * FROM supplier");
           
           while (rs.next()) {              
@@ -366,7 +366,7 @@ public class supplier extends javax.swing.JPanel {
 
         try {
 
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("INSERT INTO supplier (nama_sup,kontak) VALUES ('"+nama+"','"+kontak+"' )" );
             
             JOptionPane.showMessageDialog(null, "Data Saved");
@@ -387,7 +387,7 @@ public class supplier extends javax.swing.JPanel {
 
         try {
 
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("UPDATE produk SET nama_sup='"+nama+"',kontak='"+kontak+"' WHERE sid='"+sid+"' ");
 
             JOptionPane.showMessageDialog(null, "Data Updated");
@@ -404,7 +404,7 @@ public class supplier extends javax.swing.JPanel {
         String search = sup_src.getText();
 
         try {
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
 
             ResultSet rs = s.executeQuery(" SELECT * FROM supplier WHERE sid ='"+search+"'  ");
 
@@ -436,7 +436,7 @@ public class supplier extends javax.swing.JPanel {
             if(dialogResult == JOptionPane.YES_OPTION)
             
             {  
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             s.executeUpdate("DELETE FROM supplier WHERE sid = '"+id+"' ");
             JOptionPane.showMessageDialog(null, "Data Deleted");
             }
@@ -457,7 +457,7 @@ public class supplier extends javax.swing.JPanel {
             
             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
             dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
+            Statement s = Database.mycon().createStatement();
             
             ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE nama_sup LIKE '%"+name+"%' ");
             

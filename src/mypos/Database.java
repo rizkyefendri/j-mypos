@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author Go
  */
-public class db {
+public class Database {
    
  public static Connection mycon(){
  

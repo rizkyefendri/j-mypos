@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author kobinath
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    public login() {
+    public Login() {
         initComponents();
     }
 
@@ -159,7 +159,7 @@ public class login extends javax.swing.JFrame {
        String uname = txtuser.getText();
        String pass = txtpass.getText();
 
-       Statement s = db.mycon().createStatement();
+       Statement s = Database.mycon().createStatement();
        ResultSet rs = s.executeQuery("SELECT * FROM kasir WHERE username='"+uname+"' and password='"+pass+"' ");
 
        
@@ -167,7 +167,7 @@ public class login extends javax.swing.JFrame {
        {         
                     this.hide();
 
-         new home(txtuser.getText()).setVisible(true); 
+         new Home(txtuser.getText()).setVisible(true); 
              
        }
       else
@@ -226,14 +226,16 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -241,7 +243,7 @@ public class login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new login().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }

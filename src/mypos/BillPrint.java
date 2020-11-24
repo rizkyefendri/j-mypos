@@ -28,148 +28,147 @@ import java.sql.Statement;
 public class BillPrint extends javax.swing.JFrame {
 
 
-
-String inid = MainPos.inid.getText();
-
-
-
     
-    public BillPrint()  {
-        initComponents();
-    }
-    
-    public BillPrint(Graphics graphics,PageFormat pageFormat,int pageIndex) throws PrinterException, SQLException {
+    public BillPrint() throws PrinterException {
         initComponents();
 
         //int r= itemName.size();
       //ImageIcon icon=new ImageIcon("C:UsersccsDocumentsNetBeansProjectsvideo TestPOSInvoicesrcposinvoicemylogo.jpg"); 
-      int result = NO_SUCH_PAGE;    
-                            
-        
-            Graphics2D g2d = (Graphics2D) graphics;                    
-            double width = pageFormat.getImageableWidth();                               
-            g2d.translate((int) pageFormat.getImageableX(),(int) pageFormat.getImageableY()); 
-
-
-
-          //  FontMetrics metrics=g2d.getFontMetrics(new Font("Arial",Font.BOLD,7));
-        
-        try{
-            int y=20;
-            int yShift = 10;
-            int headerRectHeight=15;
-           // int headerRectHeighta=40;
-           
-           Statement s = Database.mycon().createStatement();
-       ResultSet rs = s.executeQuery("SELECT * FROM cart WHERE INID='"+inid+"' ");
-       
-
-    while (rs.next())
-                {
-                
-                String nm_pro = rs.getString("nama_produk");
-                String hrg = rs.getString("harga_ecer");
-                String pay = rs.getString("pay");
-                String bal = rs.getString("bal");
-                
-                
-                
-           
-            
-                
-            g2d.setFont(new Font("Monospaced",Font.PLAIN,9));
-            //g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);y+=yShift+30;
-            g2d.drawString("-------------------------------------",12,y);y+=yShift;
-            g2d.drawString("         CodeGuid.com        ",12,y);y+=yShift;
-            g2d.drawString("   No 00000 Address Line One ",12,y);y+=yShift;
-            g2d.drawString("   Address Line 02 SRI LANKA ",12,y);y+=yShift;
-            g2d.drawString("   www.facebook.com/CodeGuid ",12,y);y+=yShift;
-            g2d.drawString("        +94700000000      ",12,y);y+=yShift;
-            g2d.drawString("-------------------------------------",12,y);y+=headerRectHeight;
-
-            g2d.drawString(" Item Name      Qty            Price   ",10,y);y+=yShift;
-            g2d.drawString("-------------------------------------",10,y);y+=headerRectHeight;
-     
-            for(int i=0; i<MainPos.jTable1.getRowCount(); i++)
-            {
-                
-                String product = (String) MainPos.jTable1.getValueAt(i,2);
-                String price = (String) MainPos.jTable1.getValueAt(i,3);  
-                String qty = (String) MainPos.jTable1.getValueAt(i,4);  
-                int total = (int) MainPos.jTable1.getValueAt(i,5); 
-                
-            g2d.drawString(" "+product+"    "+qty+"               "+price+"          ",10,y);y+=yShift;
-            //g2d.drawString("      "+qty.get(i+" * "+itemPrice.get(a),10,y); g2d.drawString(subtotal.get(s),160,y);y+=yShift;
-
-            
-          
-            g2d.drawString("-------------------------------------",10,y);y+=yShift;
-            g2d.drawString(" Total amount:               "+total+"   ",10,y);y+=yShift;
-            g2d.drawString("-------------------------------------",10,y);y+=yShift;
-            g2d.drawString(" Cash      :                 "+pay+"   ",10,y);y+=yShift;
-            g2d.drawString("-------------------------------------",10,y);y+=yShift;
-            g2d.drawString(" Balance   :                 "+bal+"   ",10,y);y+=yShift;
-  
-            g2d.drawString("*************************************",10,y);y+=yShift;
-            g2d.drawString("       THANK YOU COME AGAIN            ",10,y);y+=yShift;
-            g2d.drawString("*************************************",10,y);y+=yShift;
-            g2d.drawString("       SOFTWARE BY:CODEGUID          ",10,y);y+=yShift;
-            g2d.drawString("   CONTACT: contact@codeguid.com       ",10,y);y+=yShift; 
-            }
-                }
-           
-        }
-    
-    catch(SQLException e){
-            System.out.println(e);
-    }
-    
-    
-        
-    }
+//      int result = NO_SUCH_PAGE;    
+//                            
+//        
+//            Graphics2D g2d = (Graphics2D) graphics;                    
+//            double width = pageFormat.getImageableWidth();                               
+//            g2d.translate((int) pageFormat.getImageableX(),(int) pageFormat.getImageableY()); 
+//
+//
+//
+//          //  FontMetrics metrics=g2d.getFontMetrics(new Font("Arial",Font.BOLD,7));
+//        
+//        try{
+//            int y=20;
+//            int yShift = 10;
+//            int headerRectHeight=15;
+//           // int headerRectHeighta=40;
+//           
+//           Statement s = Database.mycon().createStatement();
+//       ResultSet rs = s.executeQuery("SELECT * FROM cart WHERE INID='"+inid+"' ");
+//       
+//
+//    while (rs.next())
+//                {
+//                
+//                String nm_pro = rs.getString("nama_produk");
+//                String hrg = rs.getString("harga_ecer");
+//                String pay = rs.getString("pay");
+//                String bal = rs.getString("bal");
+//                
+//                
+//                
+//           
+//            
+//                
+//            g2d.setFont(new Font("Monospaced",Font.PLAIN,9));
+//            //g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);y+=yShift+30;
+//            g2d.drawString("-------------------------------------",12,y);y+=yShift;
+//            g2d.drawString("         CodeGuid.com        ",12,y);y+=yShift;
+//            g2d.drawString("   No 00000 Address Line One ",12,y);y+=yShift;
+//            g2d.drawString("   Address Line 02 SRI LANKA ",12,y);y+=yShift;
+//            g2d.drawString("   www.facebook.com/CodeGuid ",12,y);y+=yShift;
+//            g2d.drawString("        +94700000000      ",12,y);y+=yShift;
+//            g2d.drawString("-------------------------------------",12,y);y+=headerRectHeight;
+//
+//            g2d.drawString(" Item Name      Qty            Price   ",10,y);y+=yShift;
+//            g2d.drawString("-------------------------------------",10,y);y+=headerRectHeight;
+//     
+//            for(int i=0; i<MainPos.jTable1.getRowCount(); i++)
+//            {
+//                
+//                String product = (String) MainPos.jTable1.getValueAt(i,2);
+//                String price = (String) MainPos.jTable1.getValueAt(i,3);  
+//                String qty = (String) MainPos.jTable1.getValueAt(i,4);  
+//                int total = (int) MainPos.jTable1.getValueAt(i,5); 
+//                
+//            g2d.drawString(" "+product+"    "+qty+"               "+price+"          ",10,y);y+=yShift;
+//            //g2d.drawString("      "+qty.get(i+" * "+itemPrice.get(a),10,y); g2d.drawString(subtotal.get(s),160,y);y+=yShift;
+//
+//            
+//          
+//            g2d.drawString("-------------------------------------",10,y);y+=yShift;
+//            g2d.drawString(" Total amount:               "+total+"   ",10,y);y+=yShift;
+//            g2d.drawString("-------------------------------------",10,y);y+=yShift;
+//            g2d.drawString(" Cash      :                 "+pay+"   ",10,y);y+=yShift;
+//            g2d.drawString("-------------------------------------",10,y);y+=yShift;
+//            g2d.drawString(" Balance   :                 "+bal+"   ",10,y);y+=yShift;
+//  
+//            g2d.drawString("*************************************",10,y);y+=yShift;
+//            g2d.drawString("       THANK YOU COME AGAIN            ",10,y);y+=yShift;
+//            g2d.drawString("*************************************",10,y);y+=yShift;
+//            g2d.drawString("       SOFTWARE BY:CODEGUID          ",10,y);y+=yShift;
+//            g2d.drawString("   CONTACT: contact@codeguid.com       ",10,y);y+=yShift; 
+//            }
+//                }
+//           
+//        }
+//    
+//    catch(SQLException e){
+//            System.out.println(e);
+//    }
+//    
+//     
+//
+//        
+//    }
 
                   
-              
-      
-    
-      
-      
-        
-        
-  
-          
 
-
-        
-        
-        
-        
-         
-//        txtbill.setText(txtbill.getText() + "******************************************************\n");
-//        txtbill.setText(txtbill.getText() + "                                POSBILL                          \n");
+        txtbill.setFont(new Font("Monospaced",Font.PLAIN,9)); 
+        txtbill.setText(txtbill.getText() + "****************************************************\n");
+        txtbill.setText(txtbill.getText() + "                      POSBILL                          \n");
 //        txtbill.setFont(txtbill.getFont().deriveFont(Font.PLAIN,9));
-// 
-//        txtbill.setText(txtbill.getText() + "*******************************************************\n");   
-//         //Heading
-//          txtbill.setText(txtbill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  ); 
-//        
-//          for(int i = 0; i < model.getRowCount(); i++)
-//          {              
-//              String pname = (String)model.getValueAt(i, 2);
-//              int price = Integer.parseInt( tableModel.getValueAt(i, 3).toString() );
-//              int amount = Integer.parseInt( tableModel.getValueAt(i, 4).toString() );
-//       
-//              txtbill.setText(txtbill.getText() + pname  + "\t" + price + "\t" + amount  + "\n"  );
-//          }   
-//          txtbill.setText(txtbill.getText() + "\n");       
-//          txtbill.setText(txtbill.getText() + "\t" +  "Subtotal : " + sub + "\n");
-//          txtbill.setText(txtbill.getText() + "\n");
-//          txtbill.setText(txtbill.getText() + "*******************************************************\n");
-//          txtbill.setText(txtbill.getText() + "           THANK YOU COME AGAIN             \n");
-//          txtbill.print();
+ 
+        txtbill.setText(txtbill.getText() + "****************************************************\n");   
+         //Heading
+          txtbill.setText(txtbill.getText() + "Product" + "\t" + "Price" + "\t" + "Amount" + "\n"  ); 
+        
+          for(int i = 0; i < MainPos.jTable1.getRowCount() ; i++)
+          {              
+              String pname = (String)MainPos.jTable1.getValueAt(i, 2);
+              int price = Integer.parseInt( MainPos.jTable1.getValueAt(i, 3).toString() );
+              int amount = Integer.parseInt( MainPos.jTable1.getValueAt(i, 4).toString() );
+              
+       
+              txtbill.setText(txtbill.getText() + pname  + "\t" + price + "\t" + amount  + "\n"  );}
+           
+          
+          String total = MainPos.bill_tot.getText();
+          txtbill.setText(txtbill.getText() + "\n");       
+          txtbill.setText(txtbill.getText() + "\t" +  "Subtotal : " + total + "\n");
+          txtbill.setText(txtbill.getText() + "\n");
+          txtbill.setText(txtbill.getText() + "***************************************************\n");
+          txtbill.setText(txtbill.getText() + "           THANK YOU COME AGAIN             \n");
+         
+          
+          PrinterJob printerJob = PrinterJob.getPrinterJob();
+        PageFormat pageFormat = printerJob.defaultPage();
+        Paper paper = new Paper();
+         double lines = 0;
+        paper.setSize(180.0, (double) (paper.getHeight() + lines * 10.0));
+         int margin = 0;
+        paper.setImageableArea(margin, margin, paper.getWidth() - margin * 2, paper.getHeight() - margin * 2);
+        pageFormat.setPaper(paper);
+        pageFormat.setOrientation(PageFormat.PORTRAIT);
+        printerJob.setPrintable(txtbill.getPrintable(null, null), pageFormat);
+        //printerJob.print();
+        
+        txtbill.print();
+          
+          
+          
+          
           
     
-
+    }
     
 
     @SuppressWarnings("unchecked")

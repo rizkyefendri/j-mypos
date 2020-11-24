@@ -19,6 +19,8 @@ import java.sql.Statement;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Currency;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -246,7 +248,7 @@ public class MainPos extends javax.swing.JPanel {
 
             
                 
-            String nm_kasir =Login.txtuser.getText() ;
+            String nm_kasir =Log.txtuser.getText() ;
             String pay = paid_amt.getText();
             String balance = bal.getText();
             String tot_price = bill_tot.getText();
@@ -263,12 +265,7 @@ public class MainPos extends javax.swing.JPanel {
              
             
 //            JOptionPane.showMessageDialog(null, "Data Tersimpan");        
-            barcode.requestFocus();
-                
-                dt.setRowCount(0);
-                bill_tot.setText("");
-                paid_amt.setText("");
-                bal.setText("");
+            
             
             
             
@@ -291,87 +288,22 @@ public class MainPos extends javax.swing.JPanel {
    
     }
     
-    
  
-    
-    double bHeight=0.0;
-    
-    public void bill_print(){
-
-        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-          int rc = dt.getRowCount();
-          for (int i = 0; i < rc; i++) {
-              String p_name = dt.getValueAt(i, 2).toString();
-              
-          
-          
-        
-//        String sub = bill_tot.getText();
-//        String pay = paid_amt.getText();
-//        String bal1 = bal.getText();
-//        
-//        int paying = Integer.valueOf(pay);
-//        String pay1 = String.format("%,d", paying);
-        
-        bHeight = Double.valueOf(p_name);
-        
-
-        PrinterJob pj = PrinterJob.getPrinterJob();        
-        pj.setPrintable((Printable) new BillPrint(),getPageFormat(pj));
+    public void bill_print(){      
+      
         try {
-             pj.print();
-          
-        }
-         catch (PrinterException ex) {
-             System.out.println(ex);
-        }
-        
-        
-//        try {
-//            
-//            new BillPrint(sub,pay1,bal1,jTable1.getModel()).setVisible(true);
-//             
-//    
-//        } catch (PrinterException ex) {
-//            System.out.println(ex);
-//        }
-          }
-        
-    }
-    
-    
-    
-    public PageFormat getPageFormat(PrinterJob pj)
-{
-    
-    PageFormat pf = pj.defaultPage();
-    Paper paper = pf.getPaper();    
-
-    double bodyHeight = bHeight;  
-    double headerHeight = 5.0;                  
-    double footerHeight = 5.0;        
-    double width = cm_to_pp(8); 
-    double height = cm_to_pp(headerHeight+bodyHeight+footerHeight); 
-    paper.setSize(width, height);
-    paper.setImageableArea(0,10,width,height - cm_to_pp(1));  
             
-    pf.setOrientation(PageFormat.PORTRAIT);  
-    pf.setPaper(paper);    
-
-    return pf;
-}
-   
+            new BillPrint().setVisible(true);
+    
+        } catch (PrinterException ex) {
+            System.out.println(ex);   
+        }
+          
+        
+          
+    }
     
     
-    protected static double cm_to_pp(double cm)
-    {            
-	        return toPPI(cm * 0.393600787);            
-    }
- 
-protected static double toPPI(double inch)
-    {            
-	        return inch * 72d;            
-    }
     
 
     @SuppressWarnings("unchecked")
@@ -784,11 +716,19 @@ protected static double toPPI(double inch)
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        
+        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
         
         bill_print();
         db_insert();
+        
+        
     
+                
+                dt.setRowCount(0);
+                bill_tot.setText("");
+                paid_amt.setText("");
+                bal.setText("");
+                barcode.requestFocus();
     
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -806,7 +746,7 @@ protected static double toPPI(double inch)
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bal;
     private javax.swing.JTextField barcode;
-    private javax.swing.JTextField bill_tot;
+    public static javax.swing.JTextField bill_tot;
     public static javax.swing.JLabel inid;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
